@@ -25,6 +25,12 @@ export default function Navbar() {
                 Tentang
               </Link>
               <Link
+                href="/artikel"
+                className="hover:text-emerald-300 transition-colors"
+              >
+                Artikel
+              </Link>
+              <Link
                 href="/event"
                 className="hover:text-emerald-300 transition-colors"
               >

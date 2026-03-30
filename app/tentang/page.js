@@ -1,9 +1,28 @@
+import Image from "next/image";
+import Link from "next/link";
+
 export default function Tentang() {
   return (
     <div className="max-w-5xl mx-auto py-12 px-4">
       <h1 className="text-4xl font-bold text-emerald-800 mb-8 text-center">
         Tentang Kami
       </h1>
+
+      <div className="flex flex-col items-center mb-12">
+        <div className="bg-emerald-100 p-6 rounded-full mb-4 shadow-sm">
+          {/* Pastikan file logo tersedia di folder public, contoh: /logo-mapala.png */}
+          <Image
+            src="/next.svg" // Menggunakan file bawaan sebagai placeholder
+            alt="Logo Mapala Buana"
+            width={120}
+            height={120}
+            className="w-24 h-24 md:w-32 md:h-32 object-contain"
+          />
+        </div>
+        <h2 className="text-2xl md:text-3xl font-extrabold text-emerald-900 tracking-widest uppercase">
+          Mapala Buana
+        </h2>
+      </div>
 
       <div className="bg-white p-8 rounded-2xl shadow-sm mb-12">
         <p className="text-lg text-gray-700 leading-relaxed mb-6">
@@ -53,6 +72,14 @@ export default function Tentang() {
             </div>
           ),
         )}
+      </div>
+      <div className="text-center mt-10">
+        <Link
+          href="/tentang/anggota"
+          className="inline-block bg-emerald-700 text-white px-6 py-2 rounded-lg hover:bg-emerald-800 transition-colors"
+        >
+          Lihat Seluruh Daftar Anggota
+        </Link>
       </div>
     </div>
   );
