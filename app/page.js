@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import { daftarArtikel } from "@/data/artikel"; // Berdasarkan berkas data/artikel.js
+import { daftarGaleri } from "@/data/galeri"; // Import data galeri baru
 
 export default function Home() {
   const carouselRef = useRef(null);
@@ -119,44 +120,41 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Galeri Auto-Slide Carousel */}
-      <section className="py-20 overflow-hidden bg-white">
-        <div className="max-w-7xl mx-auto px-4 mb-10 flex justify-between items-end">
-          <div>
-            <h2 className="text-3xl font-bold text-emerald-800">
-              Galeri Kegiatan
-            </h2>
-            <p className="text-gray-600">Momen terbaik kami di lapangan</p>
-          </div>
-          <Link
-            href="/galeri"
-            className="text-emerald-700 font-semibold hover:underline"
-          >
-            Lihat Semua Foto →
-          </Link>
-        </div>
-
-        {/* Container Carousel */}
-        <div
-          ref={carouselRef}
-          className="flex gap-6 overflow-x-auto pb-8 px-4 snap-x snap-mandatory no-scrollbar scroll-smooth"
-          style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-        >
-          {photos.map((photo, index) => (
-            <div
-              key={index}
-              className="flex-none w-72 md:w-96 aspect-video relative rounded-2xl overflow-hidden shadow-lg snap-center"
-            >
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                className="object-cover w-full h-full hover:scale-105 transition-transform duration-700"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                <p className="text-white font-medium">{photo.alt}</p>
-              </div>
+      {/* 3. Preview Galeri (Section Baru) */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-between items-end mb-10">
+            <div>
+              <h2 className="text-3xl font-bold text-emerald-800">
+                Galeri Kegiatan
+              </h2>
+              <p className="text-gray-600">
+                Dokumentasi petualangan dan aksi lingkungan kami
+              </p>
             </div>
-          ))}
+            <Link
+              href="/galeri"
+              className="text-emerald-700 font-semibold hover:underline"
+            >
+              Lihat Semua Foto →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {daftarGaleri.slice(0, 4).map((item) => (
+              <div
+                key={item.id}
+                className="aspect-square relative rounded-xl overflow-hidden shadow-sm group"
+              >
+                <img
+                  src={item.src}
+                  alt={item.alt}
+                  className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

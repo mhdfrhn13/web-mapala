@@ -1,31 +1,42 @@
+// app/artikel/[id]/page.js
 import Link from "next/link";
-import { daftarArtikel } from "@/data/artikel"; // Impor data terpusat
+import { getArtikelById } from "@/app/actions/artikel";
+import { notFound } from "next/navigation";
 
 export default async function DetailArtikel({ params }) {
-  // Tunggu (await) params sebelum mengakses propertinya
   const { id } = await params;
 
-  const artikel = daftarArtikel.find((a) => String(a.id) === String(id));
+  // Mengambil data artikel tunggal dari database
+  const artikel = await getArtikelById(id);
 
   if (!artikel) {
-    return (
-      <div className="text-center py-20">
-        <h1 className="text-2xl font-bold">Artikel tidak ditemukan</h1>
-        <Link
-          href="/artikel"
-          className="text-emerald-600 underline mt-4 inline-block"
-        >
-          Kembali ke Daftar Artikel
-        </Link>
-      </div>
-    );
+    notFound();
   }
 
   return (
     <article className="max-w-3xl mx-auto py-16 px-4">
-      {/* ... sisa kode UI Anda ... */}
-      <h1 className="text-4xl font-bold">{artikel.judul}</h1>
-      <p className="whitespace-pre-line mt-6">{artikel.konten}</p>
+      <Link
+        href="/artikel"
+        className="text-emerald-600 hover:underline mb-6 inline-block text-sm"
+      >
+        ← Kembali ke Daftar Artikel
+      </Link>
+      <header className="mb-8">
+        <span className="text-emerald-600 font-bold uppercase text-xs tracking-widest">
+          {artikel.kategori}
+        </span>
+        <h1 className="text-4xl font-bold text-gray-900 mt-2">
+          {artikel.judul}
+        </h1>
+        <div className="flex gap-4 mt-4 text-sm text-gray-500">
+          <span>Oleh: {artikel.penulis}</span>
+          <span>•</span>
+          <span>{new Date(artikel.tanggal).toLocaleDateString("id-ID")}</span>
+        </div>
+      </header>
+      <div className="prose max-w-none text-gray-700 leading-relaxed text-lg">
+        <p className="whitespace-pre-line">{artikel.konten}</p>
+      </div>
     </article>
   );
 }
