@@ -2,6 +2,8 @@
 "use server";
 
 import { supabase } from "@/lib/supabase";
+import { revalidatePath } from "next/cache"; // Tambahkan ini
+import { redirect } from "next/navigation";
 
 // Fungsi untuk mengambil semua artikel
 export async function getSemuaArtikel() {
